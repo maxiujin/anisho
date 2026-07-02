@@ -5,6 +5,7 @@ import {
   SignedOut,
   UserButton
 } from "@clerk/nextjs";
+import Image from "next/image";
 import { Flame, LogIn, Shuffle, UsersRound } from "lucide-react";
 import { ForumClient } from "@/components/forum-client";
 import { isClerkConfigured } from "@/lib/clerk-config";
@@ -56,6 +57,16 @@ export default function Home() {
             </div>
           </div>
           <div className="match-preview" aria-hidden="true">
+            <div className="anime-face-wrap">
+              <Image
+                className="anime-face-image"
+                src="/anime-line-face.png"
+                alt=""
+                width={1240}
+                height={1240}
+                priority
+              />
+            </div>
             <div className="preview-ring">
               <span>DBZ</span>
               <Shuffle size={30} />
