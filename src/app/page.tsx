@@ -32,9 +32,6 @@ export default function Home() {
                 Sign in
               </button>
             </SignInButton>
-            <SignUpButton mode="modal">
-              <button className="primary-button">Start with Google</button>
-            </SignUpButton>
           </SignedOut>
           <SignedIn>
             <UserButton />
