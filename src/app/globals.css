@@ -133,6 +133,20 @@ button:disabled {
   gap: 8px;
 }
 
+.google-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.google-mark {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: white;
+}
+
 .large {
   min-height: 50px;
   padding: 0 20px;
