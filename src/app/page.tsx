@@ -60,7 +60,7 @@ export default function Home() {
             <div className="anime-face-wrap">
               <Image
                 className="anime-face-image"
-                src="/anime-line-face.png"
+                src="/anime-line-face-transparent.png"
                 alt=""
                 width={1240}
                 height={1240}
