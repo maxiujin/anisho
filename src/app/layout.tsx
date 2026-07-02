@@ -4,7 +4,7 @@ import { getClerkPublishableKey, isClerkConfigured } from "@/lib/clerk-config";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Vies Anime Gauntlet",
+  title: "Anibate",
   description: "A live anime topic forum with random discussion pairings."
 };
 

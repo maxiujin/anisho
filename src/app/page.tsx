@@ -18,11 +18,11 @@ export default function Home() {
   return (
     <main className="app-shell">
       <header className="topbar">
-        <div className="brand" aria-label="Vies Anime Gauntlet">
+        <div className="brand" aria-label="Anibate">
           <span className="brand-mark">
             <Flame size={23} strokeWidth={2.5} />
           </span>
-          <span>Vies</span>
+          <span>Anibate</span>
         </div>
         <nav className="nav-actions" aria-label="Account">
           <SignedIn>
@@ -35,7 +35,7 @@ export default function Home() {
         <section className="signed-out-stage">
           <div className="signed-out-copy">
             <p className="eyebrow">anime topic gauntlet</p>
-            <h1>Vies</h1>
+            <h1>Anibate</h1>
             <div className="hero-actions">
               <SignUpButton mode="modal">
                 <button className="primary-button large google-button">
@@ -115,7 +115,7 @@ function ClerkSetupRequired() {
           <span className="brand-mark">
             <Flame size={23} strokeWidth={2.5} />
           </span>
-          <span>Vies</span>
+          <span>Anibate</span>
         </div>
         <p className="eyebrow">clerk setup needed</p>
         <h1>Add Clerk keys to run the gauntlet.</h1>

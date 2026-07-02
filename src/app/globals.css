@@ -155,16 +155,16 @@ button:disabled {
 
 .signed-out-stage {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.78fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.82fr);
+  gap: clamp(32px, 5vw, 88px);
   min-height: calc(100vh - 128px);
   align-items: center;
 }
 
 .signed-out-copy h1 {
   margin: 0 0 22px;
-  font-size: clamp(4rem, 18vw, 14rem);
-  line-height: 0.82;
+  font-size: clamp(4rem, 11vw, 9.5rem);
+  line-height: 0.9;
   letter-spacing: 0;
   color: var(--ink);
 }

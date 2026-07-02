@@ -14,7 +14,7 @@ export default function Page() {
           <span className="brand-mark">
             <Flame size={23} strokeWidth={2.5} />
           </span>
-          <span>Vies</span>
+          <span>Anibate</span>
         </div>
         <SignUp />
       </div>
@@ -26,7 +26,7 @@ function AuthSetup() {
   return (
     <main className="auth-page">
       <div className="auth-shell">
-        <p className="eyebrow">Vies</p>
+        <p className="eyebrow">Anibate</p>
         <h1>Add your Clerk publishable key.</h1>
       </div>
     </main>
