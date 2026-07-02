@@ -1,4 +1,4 @@
-# Anibate
+# Ani-Sho
 
 A Clerk-powered anime debate gauntlet. Users sign in, enter a queue, get randomly paired, and debate one of ten anime topics in a chat room.
 
