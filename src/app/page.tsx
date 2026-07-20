@@ -6,7 +6,7 @@ import {
   UserButton
 } from "@clerk/nextjs";
 import Image from "next/image";
-import { Flame, Shuffle, UsersRound } from "lucide-react";
+import { Flame, MessageCircle, Shuffle, UsersRound } from "lucide-react";
 import { ForumClient } from "@/components/forum-client";
 import { isClerkConfigured } from "@/lib/clerk-config";
 
@@ -48,6 +48,7 @@ export default function Home() {
               </SignInButton>
             </div>
           </div>
+          <ChatPreview />
           <div className="match-preview" aria-hidden="true">
             <div className="anime-face-wrap">
               <Image
@@ -76,6 +77,36 @@ export default function Home() {
         <ForumClient />
       </SignedIn>
     </main>
+  );
+}
+
+function ChatPreview() {
+  return (
+    <div className="chat-preview" aria-hidden="true">
+      <div className="chat-preview-head">
+        <span>
+          <MessageCircle size={18} />
+          Topic room
+        </span>
+        <strong>One Piece</strong>
+      </div>
+      <div className="chat-topic-card">
+        Which crew member has the strongest emotional arc?
+      </div>
+      <div className="chat-bubble bubble-left">
+        <span>Mika</span>
+        Robin. That backstory still wins every time.
+      </div>
+      <div className="chat-bubble bubble-right">
+        <span>You</span>
+        Sanji is close though. Whole Cake Island was brutal.
+      </div>
+      <div className="chat-bubble bubble-left">
+        <span>Mika</span>
+        Fair, but “I want to live” ended the debate.
+      </div>
+      <div className="chat-input-preview">Drop your take...</div>
+    </div>
   );
 }
 

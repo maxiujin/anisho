@@ -155,15 +155,17 @@ button:disabled {
 
 .signed-out-stage {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 0.82fr);
-  gap: clamp(32px, 5vw, 88px);
+  grid-template-columns:
+    minmax(280px, 0.8fr) minmax(290px, 0.58fr)
+    minmax(360px, 0.82fr);
+  gap: clamp(22px, 3vw, 54px);
   min-height: calc(100vh - 128px);
   align-items: center;
 }
 
 .signed-out-copy h1 {
   margin: 0 0 22px;
-  font-size: clamp(4rem, 11vw, 9.5rem);
+  font-size: clamp(3.8rem, 8vw, 7.6rem);
   line-height: 0.9;
   letter-spacing: 0;
   color: var(--ink);
@@ -181,6 +183,94 @@ button:disabled {
 .hero-actions {
   gap: 12px;
   flex-wrap: wrap;
+}
+
+.chat-preview {
+  width: 100%;
+  border: 1px solid rgba(22, 32, 51, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 20px 55px rgba(22, 32, 51, 0.14);
+  padding: 14px;
+  backdrop-filter: blur(18px);
+}
+
+.chat-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.chat-preview-head span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--blue-dark);
+  font-size: 0.82rem;
+}
+
+.chat-preview-head strong {
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: white;
+  background: var(--blue);
+  font-size: 0.78rem;
+}
+
+.chat-topic-card {
+  border-radius: 8px;
+  padding: 12px;
+  color: white;
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.chat-bubble {
+  width: fit-content;
+  max-width: 92%;
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 10px 11px;
+  color: var(--ink);
+  background: white;
+  border: 1px solid rgba(22, 32, 51, 0.08);
+  box-shadow: 0 8px 16px rgba(22, 32, 51, 0.08);
+  font-size: 0.9rem;
+  line-height: 1.28;
+}
+
+.chat-bubble span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--blue-dark);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.bubble-right {
+  margin-left: auto;
+  color: white;
+  background: var(--blue);
+}
+
+.bubble-right span {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.chat-input-preview {
+  margin-top: 12px;
+  border: 1px solid rgba(22, 32, 51, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  color: rgba(22, 32, 51, 0.46);
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.86rem;
+  font-weight: 800;
 }
 
 .match-preview {
@@ -640,6 +730,18 @@ button:disabled {
 }
 
 @media (max-width: 1120px) {
+  .signed-out-stage {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .signed-out-copy {
+    grid-column: 1 / -1;
+  }
+
+  .signed-out-copy h1 {
+    font-size: clamp(4rem, 16vw, 8.5rem);
+  }
+
   .forum-grid {
     grid-template-columns: 1fr 1fr;
   }
