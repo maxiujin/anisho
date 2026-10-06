@@ -1,4 +1,3 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import {
@@ -8,6 +7,7 @@ import {
   snapshot,
   touchUser
 } from "@/lib/forum-store";
+import { readGuest } from "@/lib/guest";
 
 const actionSchema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("join") }),
@@ -16,7 +16,7 @@ const actionSchema = z.discriminatedUnion("action", [
 ]);
 
 export async function GET() {
-  const profile = await requireProfile();
+  const profile = await readGuest();
 
   if (!profile) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -28,7 +28,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const profile = await requireProfile();
+  const profile = await readGuest();
 
   if (!profile) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -54,25 +54,4 @@ export async function POST(request: Request) {
   const result = sendMessage(profile.id, parsed.data.body);
 
   return NextResponse.json(result.state, { status: result.ok ? 200 : 409 });
-}
-
-async function requireProfile() {
-  const { userId } = await auth();
-
-  if (!userId) {
-    return null;
-  }
-
-  const user = await currentUser();
-  const name =
-    user?.fullName ||
-    user?.username ||
-    user?.primaryEmailAddress?.emailAddress?.split("@")[0] ||
-    "Anime fan";
-
-  return {
-    id: userId,
-    name,
-    imageUrl: user?.imageUrl
-  };
 }

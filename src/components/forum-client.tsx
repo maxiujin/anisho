@@ -20,6 +20,7 @@ import {
   X,
   Zap
 } from "lucide-react";
+import { getAvatar, type AvatarId } from "@/lib/avatars";
 
 const topicIcons = [
   Flame,
@@ -45,7 +46,7 @@ type Topic = {
 type PublicUser = {
   id: string;
   name: string;
-  imageUrl?: string;
+  avatarId: AvatarId;
   status: "online" | "queued" | "matched";
   lastSeen: number;
 };
@@ -54,6 +55,7 @@ type ChatMessage = {
   id: string;
   userId: string;
   userName: string;
+  avatarId?: AvatarId;
   body: string;
   createdAt: number;
   system?: boolean;
@@ -84,6 +86,12 @@ export function ForumClient() {
 
   const fetchState = useCallback(async () => {
     const response = await fetch("/api/gauntlet", { cache: "no-store" });
+
+    if (response.status === 401) {
+      // Guest cookie expired or was cleared: go back to the avatar picker.
+      window.location.reload();
+      return;
+    }
 
     if (!response.ok) {
       throw new Error("Unable to load gauntlet");
@@ -229,21 +237,30 @@ export function ForumClient() {
             </div>
 
             <div className="message-list" aria-label="Chat messages">
-              {currentRoom.messages.map((chatMessage) => (
-                <div
-                  className={
-                    chatMessage.system
-                      ? "message-row system-message"
-                      : chatMessage.userId === currentUserId
-                        ? "message-row own-message"
-                        : "message-row"
-                  }
-                  key={chatMessage.id}
-                >
-                  {!chatMessage.system ? <strong>{chatMessage.userName}</strong> : null}
-                  <p>{chatMessage.body}</p>
-                </div>
-              ))}
+              {currentRoom.messages.map((chatMessage) => {
+                if (chatMessage.system) {
+                  return (
+                    <div className="message-row system-message" key={chatMessage.id}>
+                      <p>{chatMessage.body}</p>
+                    </div>
+                  );
+                }
+
+                const own = chatMessage.userId === currentUserId;
+
+                return (
+                  <div
+                    className={own ? "message-line own-line" : "message-line"}
+                    key={chatMessage.id}
+                  >
+                    <AvatarImage avatarId={chatMessage.avatarId} />
+                    <div className={own ? "message-row own-message" : "message-row"}>
+                      <strong>{chatMessage.userName}</strong>
+                      <p>{chatMessage.body}</p>
+                    </div>
+                  </div>
+                );
+              })}
               <div ref={messagesEndRef} />
             </div>
 
@@ -335,21 +352,20 @@ function statusLabel(status: PublicUser["status"]) {
   return "online";
 }
 
-function Avatar({ user }: { user: PublicUser }) {
-  if (user.imageUrl) {
-    return (
-      <Image
-        className="avatar"
-        src={user.imageUrl}
-        alt=""
-        width={38}
-        height={38}
-        unoptimized
-      />
-    );
-  }
+function AvatarImage({ avatarId }: { avatarId?: AvatarId }) {
+  return (
+    <Image
+      className="avatar"
+      src={getAvatar(avatarId).src}
+      alt=""
+      width={38}
+      height={38}
+    />
+  );
+}
 
-  return <span className="avatar fallback-avatar">{user.name.slice(0, 1)}</span>;
+function Avatar({ user }: { user: PublicUser }) {
+  return <AvatarImage avatarId={user.avatarId} />;
 }
 
 function ParticipantBadge({

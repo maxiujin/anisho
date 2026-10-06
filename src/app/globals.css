@@ -46,9 +46,7 @@ button:disabled {
   opacity: 0.62;
 }
 
-.app-shell,
-.setup-page,
-.auth-page {
+.app-shell {
   min-height: 100vh;
 }
 
@@ -69,7 +67,6 @@ button:disabled {
 
 .brand,
 .nav-actions,
-.hero-actions,
 .stat-row,
 .preview-row,
 .versus-row,
@@ -133,20 +130,6 @@ button:disabled {
   gap: 8px;
 }
 
-.google-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.google-mark {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 auto;
-  border-radius: 50%;
-  background: white;
-}
-
 .large {
   min-height: 50px;
   padding: 0 20px;
@@ -180,10 +163,6 @@ button:disabled {
   text-transform: uppercase;
 }
 
-.hero-actions {
-  gap: 12px;
-  flex-wrap: wrap;
-}
 
 .chat-preview {
   width: 100%;
@@ -605,6 +584,24 @@ button:disabled {
   border: 1px solid var(--line);
 }
 
+.message-line {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  min-width: 0;
+  max-width: min(84%, 620px);
+}
+
+.message-line .message-row {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.own-line {
+  justify-self: end;
+  flex-direction: row-reverse;
+}
+
 .message-row {
   width: fit-content;
   max-width: min(78%, 560px);
@@ -696,37 +693,140 @@ button:disabled {
   font-weight: 900;
 }
 
-.setup-page,
-.auth-page {
+.guest-entry {
+  display: grid;
+  gap: 10px;
+  width: min(460px, 100%);
+}
+
+.guest-entry .eyebrow {
+  margin: 6px 0 0;
+}
+
+.avatar-picker {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.avatar-picker legend {
+  padding: 0 0 8px;
+}
+
+.avatar-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.avatar-option {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: 6px 6px 8px;
+  border-radius: 8px;
+  border: 2px solid var(--line);
+  background: rgba(255, 255, 255, 0.76);
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 850;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.avatar-option input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.avatar-option img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.avatar-option:hover {
+  transform: translateY(-2px);
+}
+
+.avatar-option.selected {
+  border-color: var(--red);
+  background: white;
+  box-shadow: 0 14px 28px rgba(227, 52, 47, 0.22);
+}
+
+.avatar-option:focus-within {
+  outline: 3px solid rgba(23, 105, 224, 0.45);
+  outline-offset: 2px;
+}
+
+.name-row {
+  display: flex;
+  gap: 8px;
+}
+
+.name-row input {
+  min-width: 0;
+  flex: 1;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 14px;
+  color: var(--ink);
+  background: white;
+  outline: none;
+}
+
+.name-row input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(23, 105, 224, 0.12);
+}
+
+.name-shuffle {
   display: grid;
   place-items: center;
-  padding: 20px;
+  width: 48px;
+  min-height: 48px;
+  padding: 0;
+  flex: 0 0 auto;
 }
 
-.setup-panel,
-.auth-shell {
-  width: min(460px, 100%);
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  box-shadow: var(--shadow);
-  padding: 24px;
+.enter-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 4px;
 }
 
-.setup-brand,
-.auth-brand {
-  margin-bottom: 18px;
+.guest-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
-.setup-panel h1,
-.auth-shell h1 {
-  margin: 0 0 10px;
+.guest-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
 }
 
-.setup-panel code {
-  border-radius: 6px;
-  background: rgba(23, 105, 224, 0.1);
-  padding: 2px 5px;
+.guest-chip strong {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @media (max-width: 1120px) {
@@ -806,7 +906,12 @@ button:disabled {
     align-items: flex-start;
   }
 
-  .message-row {
+  .message-row,
+  .message-line {
     max-width: 92%;
+  }
+
+  .guest-chip strong {
+    display: none;
   }
 }

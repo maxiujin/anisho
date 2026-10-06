@@ -1,3 +1,4 @@
+import type { AvatarId } from "@/lib/avatars";
 import { getRandomTopic, getTopic, topics, type Topic } from "@/lib/topics";
 
 const ONLINE_TTL = 1000 * 60 * 30;
@@ -5,7 +6,7 @@ const ONLINE_TTL = 1000 * 60 * 30;
 export type ForumUser = {
   id: string;
   name: string;
-  imageUrl?: string;
+  avatarId: AvatarId;
   lastSeen: number;
   status: "online" | "queued" | "matched";
   roomId?: string;
@@ -16,6 +17,7 @@ export type ChatMessage = {
   roomId: string;
   userId: string;
   userName: string;
+  avatarId?: AvatarId;
   body: string;
   createdAt: number;
   system?: boolean;
@@ -86,7 +88,7 @@ function prune() {
   }
 }
 
-export function touchUser(profile: { id: string; name: string; imageUrl?: string }) {
+export function touchUser(profile: { id: string; name: string; avatarId: AvatarId }) {
   prune();
 
   const state = store();
@@ -94,7 +96,7 @@ export function touchUser(profile: { id: string; name: string; imageUrl?: string
   const user: ForumUser = {
     id: profile.id,
     name: profile.name,
-    imageUrl: profile.imageUrl,
+    avatarId: profile.avatarId,
     lastSeen: Date.now(),
     status: existing?.status ?? "online",
     roomId: existing?.roomId
@@ -225,6 +227,11 @@ export function leaveGauntlet(userId: string) {
   return snapshot(userId);
 }
 
+export function removeUser(userId: string) {
+  leaveGauntlet(userId);
+  store().users.delete(userId);
+}
+
 export function sendMessage(
   userId: string,
   body: string
@@ -245,6 +252,7 @@ export function sendMessage(
     roomId: room.id,
     userId,
     userName: user.name,
+    avatarId: user.avatarId,
     body: cleanBody,
     createdAt: Date.now()
   });
@@ -258,7 +266,7 @@ function publicUser(user: ForumUser) {
   return {
     id: user.id,
     name: user.name,
-    imageUrl: user.imageUrl,
+    avatarId: user.avatarId,
     status: user.status,
     lastSeen: user.lastSeen
   };
